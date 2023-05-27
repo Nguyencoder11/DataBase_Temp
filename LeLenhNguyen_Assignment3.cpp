@@ -1,71 +1,66 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class PS
+class Phanso
 {
 private:
-    int ts, ms;
+    int Tuso, Mauso;
 
 public:
-    // phuong thuc khoi tao
-    // khoi tao khong doi
-    PS()
+    Phanso()
     {
-        ts = 3;
-        ms = 4;
+        Tuso = 1;
+        Mauso = 2;
     }
 
-    // khoi tao co doi
-    PS(int a, int b)
+    Phanso(int Tuso, int Mauso)
     {
-        ts = a;
-        ms = b;
+        this->Tuso = Tuso;
+        this->Mauso = Mauso;
     }
 
-    // void PS operator>>(int ts, int ms)
-    // {
-    // }
-
-    // Phuong thuc toan tu tra ve tich 2 phan so
-    PS operator*(PS value)
+    friend istream &operator>>(istream &is, Phanso &ps)
     {
-        PS res;
-        res.ts = this->ts * value.ts;
-        res.ms = this->ms * value.ms;
-        return res;
+        cout << "Tu so: ";
+        is >> ps.Tuso;
+        cout << "Mau so: ";
+        is >> ps.Mauso;
+        return is;
     }
 
-    // phuong thuc toan tu tra ve gia tri cua phan so
-    float getValue()
+    friend ostream &operator<<(ostream &os, Phanso ps)
     {
-        return (float)this->ts / this->ms;
+        os << ps.Tuso << "/" << ps.Mauso;
+        return os;
     }
 
-    // ham toan tu nhap mot phan so
-    friend istream &
-    operator>>(istream &in, PS value)
+    Phanso operator*(Phanso y)
     {
-    }
-    
-    // ham toan tu xuat phan so
-    friend ostream &operator<<(ostream &out, PS value)
-    {
+        Phanso c;
+        c.Tuso = Tuso * y.Tuso;
+        c.Mauso = Mauso * y.Mauso;
+        return c;
     }
 
-    void
-    xuat()
+    float operator++()
     {
-        cout << ts << "/" << ms << endl;
+        return (float)Tuso / Mauso;
     }
 };
 
 int main()
 {
-    PS ps1;
-    cout << "Phan so 1: ";
-    ps1.xuat();
-
-    PS ps2(5, 2);
-    cout << "Phan so 2: ";
-    ps2.xuat();
+    Phanso a, b;
+    cout << "Nhap phan so A\n";
+    cin >> a;
+    cout << "Nhap phan so B\n";
+    cin >> b;
+    Phanso c = a.operator*(b);
+    cout << "Tich cua A va B: " << c << endl;
+    ofstream f("PHANSO.txt", ios::out);
+    f << "Phan so A: " << a << endl;
+    f << "Phan so B: " << b << endl;
+    f << "Tich cua A va B: " << c << endl;
+    f << "Gia tri cua phan so tich: " << ++c << endl;
+    f.close();
 }
